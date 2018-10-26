@@ -9,23 +9,30 @@ const TEXT_GREEN = '51, 255, 0';
 exports.decorateConfig = (config) => {
   return Object.assign({}, config, {
     foregroundColor: BRIGHT_GREEN,
-    backgroundColor: DARK_GREEN,
+    backgroundColor: transparent,
     borderColor: BRIGHT_GREEN,
     cursorColor: '#40FFFF',
   });
 }
 
-exports.decorateHyper = (HyperTerm, { React, notify }) => {
+exports.decorateHyper = (HyperTerm, {
+  React,
+  notify
+}) => {
   return class extends React.Component {
     constructor(props, context) {
       super(props, context);
-      this.state = { noise: 0 };
+      this.state = {
+        noise: 0
+      };
       this._flip = this._flip.bind(this);
       this._intervalID = null;
     }
 
-    _flip () {
-      this.setState({ noise: (this.state.noise + 1) % 3 });
+    _flip() {
+      this.setState({
+        noise: (this.state.noise + 1) % 3
+      });
     }
 
     componentWillMount() {
@@ -41,10 +48,19 @@ exports.decorateHyper = (HyperTerm, { React, notify }) => {
       const textShadow = generateTextShadow();
 
       const overridenProps = {
-        backgroundColor: 'black',
+        backgroundColor: 'transparent',
         customCSS: `
           ${this.props.customCSS || ''}
-          body {
+          .hyper_main {
+            ${noiseCss}
+          }
+          .term_fit {
+            ${noiseCss}
+          }
+          .term_wrapper {
+            ${noiseCss}
+          }
+          .xterm_screen {
             ${noiseCss}
           }
           .tabs_nav {
@@ -91,9 +107,12 @@ exports.decorateHyper = (HyperTerm, { React, notify }) => {
   }
 }
 
-exports.decorateTerm = (Term, { React, notify }) => {
+exports.decorateTerm = (Term, {
+  React,
+  notify
+}) => {
   return class extends React.Component {
-    constructor (props, context) {
+    constructor(props, context) {
       super(props, context);
       this._drawFrame = this._drawFrame.bind(this);
       this._onTerminal = this._onTerminal.bind(this);
@@ -105,7 +124,7 @@ exports.decorateTerm = (Term, { React, notify }) => {
       this._intervalID = null;
     }
 
-    _onTerminal (term) {
+    _onTerminal(term) {
       if (this.props.onTerminal) this.props.onTerminal(term);
       this._div = term.div_;
       this._term = term;
@@ -127,7 +146,7 @@ exports.decorateTerm = (Term, { React, notify }) => {
       this._term.scrollPort_.document_.body.appendChild(this._globalStyle);
     }
 
-    _drawFrame () {
+    _drawFrame() {
       this._globalStyle.innerHTML = `
         x-screen {
           ${generateTextShadow()}
@@ -135,13 +154,13 @@ exports.decorateTerm = (Term, { React, notify }) => {
       `;
     }
 
-    render () {
+    render() {
       return React.createElement(Term, Object.assign({}, this.props, {
         onTerminal: this._onTerminal
       }));
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
       clearInterval(this._intervalID);
     }
   }
