@@ -3,7 +3,7 @@ const noise2Png = require('./noise2');
 const noise3Png = require('./noise3');
 const HUE_SHIFT_INTENSITY = 4;
 const BRIGHT_GREEN = '#28FC91';
-const DARK_GREEN = '#0F2218';
+const DARK_GREEN = 'transparent';
 const TEXT_GREEN = '51, 255, 0';
 
 exports.decorateConfig = (config) => {
@@ -51,6 +51,9 @@ exports.decorateHyper = (HyperTerm, {
         backgroundColor: 'transparent',
         customCSS: `
           ${this.props.customCSS || ''}
+          body {
+            ${noiseCss}
+          }
           .hyper_main {
             ${noiseCss}
           }
@@ -62,7 +65,7 @@ exports.decorateHyper = (HyperTerm, {
           }
           .xterm_screen {
             ${noiseCss}
-          }
+        }
           .tabs_nav {
             ${noiseCss}
           }
@@ -107,6 +110,8 @@ exports.decorateHyper = (HyperTerm, {
   }
 }
 
+
+
 exports.decorateTerm = (Term, {
   React,
   notify
@@ -136,6 +141,8 @@ exports.decorateTerm = (Term, {
       }, 80);
     }
 
+
+
     _injectStyles() {
       if (this._term) {
         this._term.prefs_.set('background-color', 'transparent');
@@ -163,7 +170,24 @@ exports.decorateTerm = (Term, {
     componentWillUnmount() {
       clearInterval(this._intervalID);
     }
+
+
+    // _onDecorated(term) {
+    //   const xTermInstance = term.term;
+
+    //   // don't know why it doesn't work without setTimeout
+    //   setTimeout(() => {
+    //     // needed if you have a fully opaque hyper backgroundColor, set in .hyper.js
+    //     xTermInstance.setOption('allowTransparency', true);
+
+    //     xTermInstance.setOption('theme', {
+    //       background: 'rgba(0,0,0,0)'
+    //     });
+    //   }, 0);
+    // }
   }
+
+
 };
 
 function generateTextShadow() {
