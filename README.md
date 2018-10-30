@@ -6,9 +6,20 @@
 
 ## Install
 
-Add `hyperpunk2.0` to the plugins list in your `~/.hyper.js` config file, and set you background color to transparent.
+Install hyperpunk2.0:
 
-Tip: I recommend using the [AHAMONO](http://freebiesbug.com/free-fonts/ahamono-free-font/) font together with this theme. (That's Andre's suggestion. I personally use [Fura Code Powerline](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode))
+###### The fast way
+1. `hyper -i hyperpunk2.0`
+2. `config { backgroundColor: 'transparent' } `
+3. Taddaa! Enjoy 🚀
+###### The old way
+1. Edit `~/.hyper.js`
+2. Add `hyperpunk2.0` to the `plugins` array
+3. `config { backgroundColor: 'transparent' } `
+4. Taddaa! Enjoy 🚀
+
+
+**NOTE**: I recommend using the [AHAMONO](http://freebiesbug.com/free-fonts/ahamono-free-font/) font together with this theme. (That's Andre's suggestion. I personally use [Fura Code Powerline](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FiraCode))
 
 
 
