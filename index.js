@@ -9,7 +9,7 @@ const TEXT_GREEN = '51, 255, 0';
 exports.decorateConfig = (config) => {
   return Object.assign({}, config, {
     foregroundColor: BRIGHT_GREEN,
-    backgroundColor: transparent,
+    backgroundColor: 'transparent',
     borderColor: BRIGHT_GREEN,
     cursorColor: '#40FFFF',
   });
